@@ -1,0 +1,31 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: lightgrey;
+  padding: 10px;
+  border-bottom: 1px solid black;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.logo img {
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+}
+
+.navigation button {
+  margin-left: 10px;
+  padding: 10px;
+  background-color: transparent;
+  border: 1px solid black;
+  cursor: pointer;
+}
+
+.navigation button:hover {
+  background-color: white;
+}

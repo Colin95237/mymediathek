@@ -1,0 +1,43 @@
+<form [formGroup]="filterFormGroup">
+  <div class="container-fluid">
+    <div class="form-inline">
+      <input class="form-control mr-sm-2" type="text" placeholder="Suche" on aria-label="Search" formControlName="search" (keyup)="filter()">
+    </div>
+    <label for="filterType" >Kategorie: </label>
+    <select class="dropdown-toggle" id="filterType" #filterType formControlName="filterType" (change)="filter()">
+      <option>Alle</option>
+      <option *ngFor="let type  of listTypes">{{type.name}}</option>
+    </select>
+    <label for="filterDone">Status:</label>
+    <select class="dropdown-toggle" id="filterDone" #filterDone formCont formControlName="filterDone" (change)="filter()">
+      <option>Alle</option>
+      <option>Fertig</option>
+      <option>Nicht Fertig</option>
+    </select>
+    <label for="sorting">Sortieren:</label>
+      <select class="dropdown-toggle" id="sorting" #sorting (change)="filter()" formControlName="sort">
+      <option disabled selected value>--</option>
+      <option value="alphabetical">Alphabetisch</option>
+      <option value="sortRatingAscending">Rating - aufsteigend</option>
+      <option value="sortRatingDescending">Rating - absteigend</option>
+      <option value="sortPriorityAscending">Priorität - aufsteigend</option>
+      <option value="sortPriorityDescending">Priorität - absteigend</option>
+      <option value="sortReleaseDateAscending">Erscheinungsdatum - aufsteigend</option>
+      <option value="sortReleaseDateDescending">Erscheinungsdatum - absteigend</option>
+    </select>
+  </div>
+</form>
+
+
+
+<!--
+  <div class="dropdown">
+    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" (click)="filterByType()">
+      Kategorie
+    </button>
+    <ul class="dropdown-menu">
+      <li><a class="dropdown-item" href="#" *ngFor="let type of listTypes" formControlName="type">{{type.name}}</a></li>
+    </ul>
+  </div>
+  -->
+

@@ -1,0 +1,48 @@
+<div class="edit-type-container">
+  <h2>Mediumtyp bearbeiten:</h2>
+  <form [formGroup]="typeForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <div class="input-group mt-5">
+        <div class="input-group-prepend">
+          <span class="">
+            <button
+              id="dropdownMenuButton"
+              type="button"
+              class="btn btn-outline-primary dropdown-toggle"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <i [ngClass]="selectedIcon"></i>
+            </button>
+            <ul class="dropdown-menu">
+              <li
+                *ngFor="let icon of iconNames"
+                class="dropdown-item text-center"
+                (click)="selectIcon(icon)"
+              >
+                <i [ngClass]="icon"></i>
+              </li>
+            </ul>
+
+            <!-- hidden input -->
+            <input
+              type="hidden"
+              formControlName="icon"
+              [value]="selectedIcon"
+            />
+          </span>
+        </div>
+
+        <input
+          id="name"
+          type="text"
+          class="form-control"
+          placeholder="Name"
+          formControlName="name"
+          aria-label="Text input with dropdown button"
+        />
+      </div>
+    </div>
+    <button id="saveButton" type="submit">Speichern</button>
+  </form>
+</div>

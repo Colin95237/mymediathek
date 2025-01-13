@@ -1,0 +1,49 @@
+<!-- Style: Linker Rand-->
+<div class="mx-auto" style="width: 750px;">
+<!-- Margin-->
+
+<span *ngIf="selectedMedium?.publishedDate" style="padding-right: 20px">{{selectedMedium?.publishedDate}}</span>
+<span  *ngIf="selectedMedium?.author" style="padding-right: 50px"> {{selectedMedium?.author}} </span>
+<span *ngIf="selectedMedium?.link"> <a href="{{selectedMedium?.link}}" target="_blank">Link zum Original </a> </span>
+  <br>
+  <div *ngIf="selectedMedium?.imageLink" style="padding-top: 20px">
+    <img src="{{selectedMedium?.imageLink}}" style="max-width: 200px; max-height: 200px; width: auto; height: auto">
+    <br>
+  </div>
+  <br>
+<p>
+  {{selectedMedium?.description}}
+</p>
+  <form>
+    <input type="radio" id="read" name="readornot" [value]="true"
+           (change)="onWasReadChange(true)"
+           [checked]="selectedMedium?.wasRead === true">
+    <label for="read">&nbsp;<span class="badge text-bg-success">Fertig</span></label>
+    <br>
+    <input type="radio" id="notRead" name="readornot" [value]="false"
+           (change)="onWasReadChange(false)"
+           [checked]="selectedMedium?.wasRead === false">
+    <label for="notRead">&nbsp;<span class="badge text-bg-secondary">Nicht Fertig</span></label>
+  </form>
+  <br>
+  <div *ngIf="selectedMedium!.rating">
+    <h5>Deine Bewertung</h5>
+    <ng-template #t let-fill="fill">
+      <i id="star" class="bi-star-fill">
+        @if (fill > 0.0) {
+          <i  class="bi-star-fill filled" [style.width.%]="fill"></i>
+        }
+      </i>
+    </ng-template>
+
+    <ngb-rating [rate]="selectedMedium!.rating!" [starTemplate]="t" [readonly]="true" [max]="5" />
+  </div>
+
+  <br>
+  <div>
+    {{selectedMedium?.comment}}
+  </div>
+  <br>
+  <br>
+</div>
+

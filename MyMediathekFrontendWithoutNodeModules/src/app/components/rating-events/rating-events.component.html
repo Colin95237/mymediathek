@@ -1,0 +1,11 @@
+<ng-template #t let-fill="fill">
+	<i class="bi-star-fill">
+		@if (fill > 0) {
+			<i class="bi-star-fill filled" [style.width.%]="fill"></i>
+		}
+	</i>
+</ng-template>
+
+
+<ngb-rating [(rate)]="rating!" (rateChange)="onRatingChange($event)" (hover)="hovered = $event" (leave)="hovered = 0" [readonly]="readonly" [max]="5" [starTemplate]="t" />
+

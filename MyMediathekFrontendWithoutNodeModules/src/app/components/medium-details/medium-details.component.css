@@ -1,0 +1,34 @@
+.select_dev{
+  margin: 25px;
+}
+
+.rating {
+  display: flex;
+  font-size: 2rem; /* Adjust size as needed */
+}
+
+.star {
+  cursor: pointer;
+  color: #e0e0e0; /* Color for empty stars */
+  transition: color 0.3s;
+}
+
+.star.filled {
+  color: #b01515; /* Color for filled stars */
+}
+
+#star {
+  position: relative;
+  display: inline-block;
+  font-size: 1.5 rem;
+  padding-right: 0.1rem;
+  color: #d3d3d3;
+}
+
+.filled {
+  color: orange;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+}

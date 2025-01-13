@@ -1,0 +1,34 @@
+<div *ngIf="typeDetails">
+  <div class="d-flex justify-content-between">
+    <h2>{{ typeDetails.name }}</h2>
+    <span>
+      <button (click)="goBack()" class="btn btn-outline-primary">
+        <i class="bi bi-backspace"></i></button
+    ></span>
+  </div>
+
+  <div class="text-center">
+    <ul *ngIf="mediaOfType.length > 0; else emptyList" class="list-group">
+      <h5>Media von Typ {{ typeDetails.name }}:</h5>
+      <li
+        *ngFor="let medium of mediaOfType"
+        class="list-group-item"
+        data-bs-toggle="modal"
+        data-bs-target="#detailsModal"
+        (click)="showModal(medium)"
+      >
+        {{ medium.name }}
+        <span>{{ medium.id }}</span>
+        <app-modal [selectedMedium]="medium"></app-modal>
+      </li>
+    </ul>
+    <ng-template #emptyList
+      >Die Liste ist leer. Füge ein neues Medium hinzu:
+      <span
+        ><button class="btn btn-outline-primary" (click)="goToNewMedium()">
+          Medium +
+        </button></span
+      >
+    </ng-template>
+  </div>
+</div>

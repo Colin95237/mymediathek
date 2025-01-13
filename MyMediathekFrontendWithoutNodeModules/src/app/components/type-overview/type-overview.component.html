@@ -1,0 +1,57 @@
+<div class="mx-auto p-5">
+  <ul class="list-group">
+    <h2 class="text-center my-3">Verfügbare Kategorien:</h2>
+
+    <li *ngFor="let type of types; let i = index" class="list-group-item px-5">
+      <div *ngIf="type !== clickedType; else details">
+        <div (click)="showDetails(type)" class="d-flex justify-content-between">
+          <div class="px-5 mt-2">
+            <h3>
+              <i [ngClass]="type.icon" class="mx-1"></i>
+              {{ type.name }}
+              <span
+                *ngIf="typeAndNumberOfMedia[type.id!] > 0"
+                class=""
+                style="font-size: 0.7em; vertical-align: center"
+              >
+                ({{ typeAndNumberOfMedia[type.id!] }})
+              </span>
+            </h3>
+          </div>
+
+          <span class="btn-group px-5">
+            <button (click)="edit(type.id!)" class="btn btn-outline-primary">
+              <i class="bi bi-gear"></i>
+            </button>
+            <button
+              (click)="onClickDelete(type.id!)"
+              class="btn btn-outline-primary"
+            >
+              <i class="bi bi-trash"></i>
+            </button>
+          </span>
+        </div>
+      </div>
+      <ng-template #details>
+        <app-type-details
+          [typeDetails]="clickedType"
+          (typeEvent)="showDetails($event)"
+        ></app-type-details>
+      </ng-template>
+    </li>
+  </ul>
+  <div class="text-center my-3">
+    <h5>
+      Kategorie nicht auf der Liste? Neuen Typ hinzufügen!
+      <span
+        ><button
+          type="button"
+          routerLink="/create-type"
+          class="btn btn-outline-primary"
+        >
+          Neu +
+        </button></span
+      >
+    </h5>
+  </div>
+</div>

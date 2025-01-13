@@ -1,0 +1,55 @@
+<app-filter
+(filteredListEvent)="onFilterList($event)"
+></app-filter>
+<div *ngIf="!noWasRead()&&listMedium.length!==0">
+  <h2 *ngIf="isLoaded">{{"Deine offenen Medien"}}</h2>
+</div>
+<div *ngFor="let medium of listMedium" >
+  <div class="container-fluid" *ngIf="medium">
+    <div class="card">
+      <div class="card-header">
+        <i [class]="medium.type.icon"> - {{medium.type.name}}</i>
+        <span [class]="medium.wasRead?'badge text-bg-success':'badge text-bg-secondary'">{{medium.wasRead?"Fertig":"Nicht Fertig"}}</span>
+      </div>
+      <div class="card-body" >
+        <div class="container">
+          <div class="row">
+            <div class="img" *ngIf="medium.imageLink">
+                <img src="{{medium.imageLink}}" style="max-width: 150px; height: 100px;">
+            </div>
+            <div class="col">
+              <div class="card-title">
+              <p class="title"> {{medium.name}}</p>
+              </div>
+              <app-modal  [selectedMedium]="selectedMedium"></app-modal>
+              <!-- Button trigger modal -->
+              <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#detailsModal" (click)="onClick(medium)">
+                Details
+              </button>
+            </div>
+          <div class="col" id="right" >
+            <div >
+              <p *ngIf="medium.priority">Priorität: </p>
+              <ngb-progressbar *ngIf="medium.priority" class="mb-3" type="warning" height="12px" [value]="medium.priority*10" />
+            </div>
+
+             <ng-template #t let-fill="fill">
+              <i id="star" class="bi-star-fill">
+                @if (fill > 0.0) {
+                  <i  class="bi-star-fill filled" [style.width.%]="fill"></i>
+                }
+              </i>
+            </ng-template>
+
+            <ngb-rating *ngIf="medium.rating" [rate]="medium.rating!" [starTemplate]="t" [readonly]="true" [max]="5" />
+
+          </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+

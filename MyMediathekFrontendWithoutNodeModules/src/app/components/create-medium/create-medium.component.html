@@ -1,0 +1,253 @@
+<div class="create-medium-container">
+  <h2 class="my-5">Neues Medium hinzufügen:</h2>
+  <form [formGroup]="mediumForm" (ngSubmit)="onSubmit()">
+
+    <ul class="nav nav-tabs mb-4">
+      <li class="nav-item">
+        <button
+          type="button"
+          [ngClass]="tabNumber === 1 ? 'nav-link active' : 'nav-link'"
+          (click)="jumpOnClick(1)"
+        >
+          Basisinformationen
+        </button>
+      </li>
+      <li class="nav-item">
+        <button
+          type="button"
+          [ngClass]="tabNumber === 2 ? 'nav-link active' : 'nav-link'"
+          (click)="jumpOnClick(2)"
+        >
+          Bewertung & Weitere Information
+        </button>
+      </li>
+    </ul>
+    <div class="tab1" *ngIf="tabNumber == 1">
+      <div class="form-group">
+        <label for="name">Name: <span class="required-star">*</span></label>
+        <input class="form-control" id="name" type="text" formControlName="name" required/>
+        <small class="text-danger"
+               *ngIf="(mediumForm.get('name')?.touched||mediumForm.get('name')?.dirty) && mediumForm.get('name')?.hasError('required')">
+          Dieses Feld ist ein Pflichtfeld.
+        </small>
+      </div>
+
+
+      <div class="form-group">
+        <label for="type"
+          >Kategorie: <span class="required-star">*</span></label
+        >
+        <select class="form-control" id="type" formControlName="type" required>
+          <option *ngFor="let type of typeList" [ngValue]="type">
+            {{ type.name }}
+          </option>
+        </select>
+        <small
+        class="text-danger"
+        *ngIf="
+          (mediumForm.get('type')?.touched ||
+            mediumForm.get('type')?.dirty) &&
+          mediumForm.get('type')?.hasError('required')
+        ">
+        Dieses Feld ist ein Pflichtfeld.
+        </small>
+        <div class="mt-2" style="text-align: center; font-size: 0.9rem">
+          <span>Kategorie nicht gefunden? Neue erstellen: </span>
+          <button
+            type="button"
+            class="btn btn-outline-primary"
+            style="font-size: 0.9rem"
+            routerLink="/create-type"
+          >
+            Neue +
+          </button>
+        </div>
+        <br />
+
+      </div>
+      <div class="form-group">
+        <label for="priority">
+          Priorität
+          <span style="font-size: 0.9rem">1 (niedrig) - 10 (hoch)</span> :
+          <span class="required-star">*</span>
+        </label>
+        <p style="font-size: 0.9rem">
+          Aktueller Wert:
+          <span class="badge bg-secondary">{{
+            this.mediumForm.controls["priority"].value == null
+              ? "Wähle die Priorität!"
+              : this.mediumForm.controls["priority"].value
+          }}</span>
+        </p>
+        <input
+          id="priority"
+          type="range"
+          class="custom-range"
+          min="1"
+          max="10"
+          step="1"
+          formControlName="priority"
+          required
+        />
+
+        <small class="text-danger"
+               *ngIf="mediumForm.get('priority')?.hasError('required')">
+          Dieses Feld ist ein Pflichtfeld.
+        </small>
+      </div>
+
+      <div class="form-group">
+        <label for="author">Autor: </label>
+        <input
+          id="author"
+          class="form-control"
+          type="text"
+          formControlName="author"
+          placeholder="z. B. Joseph Heller"
+        />
+      </div>
+      <div class="form-group">
+        <label for="description">Beschreibung: </label>
+        <textarea
+          id="description"
+          class="form-control"
+          formControlName="description"
+          placeholder="It was love at first sight. The first time Yossarian saw the chaplain he fell madly in love with him..."
+        >
+        </textarea>
+      </div>
+      <div style="text-align: center">
+        <button
+          class="btn btn-outline-primary"
+          type="button"
+          (click)="jumpOnClick(2)"
+        >
+          Weiter an: Bewertung und Weitere Infos
+        </button>
+      </div>
+    </div>
+
+<!-- Tab no 2 -->
+
+    <div class="tab2" *ngIf="tabNumber == 2">
+      <div class="form-group">
+        <label for="publishedDate">Veröffentlichungsdatum: </label>
+        <input
+          id="publishedDate"
+          type="date"
+          class="form-control"
+          formControlName="publishedDate"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="link">Link zum Original: </label>
+        <input
+          id="link"
+          class="form-control"
+          type="url"
+          formControlName="link"
+          placeholder="http://..."
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="imageLink">Bildlink: </label>
+        <input
+          id="imageLink"
+          class="form-control"
+          type="url"
+          formControlName="imageLink"
+          placeholder="http://..."
+        />
+      </div>
+      <div class="my-3" style="text-align: center">
+        <div class="form-check form-check-inline my-2 py-0">
+          <input
+            class="form-check-input"
+            style="border-color: #0d6efd"
+            type="radio"
+            id="read"
+            name="wasRead"
+            [value]="true"
+            formControlName="wasRead"
+          />
+          <label for="read" class="form-check-label"
+            ><span class="badge text-bg-success">Fertig</span></label
+          >
+        </div>
+        <div class="form-check form-check-inline">
+          <input
+            class="form-check-input"
+            style="border-color: #0d6efd"
+            type="radio"
+            id="notRead"
+            name="wasRead"
+            [value]="false"
+            formControlName="wasRead"
+          />
+          <label for="notRead" class="form-check-label"
+            ><span class="badge text-bg-secondary">Nicht Fertig</span></label
+          >
+        </div>
+      </div>
+      <div class="my-3">
+        <label for="rating"
+          >Deine Bewertung:
+          <span style="font-size: 0.9rem"
+            >(0,1 = Es war nicht gut - 5,0 = Es hat mein Leben verändert)</span
+          >
+        </label>
+
+        <div style="text-align: center">
+          <ngbd-rating-events
+            [(rating)]="mediumForm.controls['rating'].value"
+            (ratingChange)="onRatingChange($event)"
+          ></ngbd-rating-events>
+          <div class="input-group mt-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Aktueller Wert:</span>
+            </div>
+            <input
+              id="rating"
+              type="number"
+              class="form-control"
+              formControlName="rating"
+              step="0.1"
+            />
+          </div>
+
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="comment">Deine Rezension: </label>
+        <textarea
+          id="comment"
+          formControlName="comment"
+          class="form-control"
+        ></textarea>
+      </div>
+      <div style="text-align: center">
+        <button
+          type="button"
+          class="btn btn-outline-primary"
+          (click)="jumpOnClick(1)"
+        >
+          Zurück zu den Basisinformationen
+        </button>
+      </div>
+    </div>
+    <div style="text-align: center">
+      <button
+        class="btn btn-primary my-5"
+        style="text-align: center"
+        type="submit"
+        [disabled]="mediumForm.invalid"
+        [ngClass]="{ 'valid-form': mediumForm.valid }"
+      >
+        Speichern
+      </button>
+    </div>
+  </form>
+</div>
